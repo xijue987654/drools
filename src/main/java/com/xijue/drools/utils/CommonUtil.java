@@ -1,7 +1,7 @@
 package com.xijue.drools.utils;
 
 /**
- * Author: mss13072
+ * Author: xijue987654
  * Date: Created in 2020/7/13 19:00
  * Version: 1.0
  */

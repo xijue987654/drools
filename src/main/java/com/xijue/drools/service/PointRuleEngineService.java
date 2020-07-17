@@ -3,7 +3,7 @@ package com.xijue.drools.service;
 import com.xijue.drools.entity.PointDomain;
 
 /**
- * Author: mss13072
+ * Author: xijue987654
  * Date: Created in 2020/7/10 15:28
  * Version: 1.0
  */

@@ -1,5 +1,7 @@
 package com.xijue.drools.service;
 
+import com.xijue.drools.entity.RequestDto;
+
 /**
  * Description： 重新load规则
  * Author: mss13072
@@ -8,5 +10,7 @@ package com.xijue.drools.service;
  */
 public interface ReloadDroolsRules {
 
-    void reload(String drlName) throws Exception;
+    void reload(RequestDto request) throws Exception;
+
+    void testReload() throws Exception;
 }

@@ -1,9 +1,11 @@
 package com.xijue.drools.controller;
 
+import com.xijue.drools.entity.RequestDto;
 import com.xijue.drools.service.ReloadDroolsRules;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,9 +22,15 @@ public class CommonController {
     private ReloadDroolsRules reloadDroolsRules;
 
     @RequestMapping("/reload")
-    public String reload(String drlName) throws Exception {
-        reloadDroolsRules.reload(drlName);
+    public String reload(RequestDto request) throws Exception {
+        reloadDroolsRules.reload(request);
         return "reload ok!";
+    }
+
+    @RequestMapping(value = "/testReload", method = RequestMethod.POST)
+    public String testReload() throws Exception {
+        reloadDroolsRules.testReload();
+        return "test reload ok!";
     }
 
     public String checkDrlFile(String drlName) throws Exception {

@@ -10,13 +10,8 @@ import com.xijue.drools.entity.PointDomain;
 public interface PointRuleEngineService {
 
     /**
-     *  增加积分规则
+     *  积分规则
      */
-    void executeAddPointRule(PointDomain pointDomain);
-
-    /**
-     *  扣减积分规则
-     */
-    void executeSubPointRule(PointDomain pointDomain);
+    void executePointRule(PointDomain pointDomain);
 
 }

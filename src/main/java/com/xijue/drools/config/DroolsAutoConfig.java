@@ -57,11 +57,16 @@ public class DroolsAutoConfig {
         });
 
         KieBuilder kieBuilder = getKieServices().newKieBuilder(kieFileSystem());
+        Results results = kieBuilder.getResults();
+        if (results.hasMessages(Message.Level.ERROR)) {
+            System.out.println(results.getMessages());
+            throw new IllegalStateException("### errors ###");
+        }
         kieBuilder.buildAll();
 
         KieContainer kieContainer = getKieServices().newKieContainer(kieRepository.getDefaultReleaseId());
         KieUtils.setKieContainer(kieContainer);
-        return getKieServices().newKieContainer(kieRepository.getDefaultReleaseId());
+        return kieContainer;
     }
 
     private KieServices getKieServices() {

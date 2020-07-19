@@ -84,6 +84,7 @@ public class ReloadDroolsRulesImpl implements ReloadDroolsRules {
     private void loadDBRules(KieFileSystem kfs) {
         Example example = new Example(Rule.class);
         example.createCriteria().andEqualTo("isDeleted", "0")
+                .andEqualTo("visible", 1)
                 .andEqualTo("packageName", "droolRule");
         List<Rule> rules = ruleMapper.selectByExample(example);
         for (Rule rule : rules) {

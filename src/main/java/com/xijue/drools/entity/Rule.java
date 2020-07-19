@@ -54,18 +54,33 @@ public class Rule implements Serializable {
     @Column(name = "updated_time")
     private Date updatedTime;
 
+    /**
+     *  删除标志 0：未删除； 1：已删除
+     */
     @Column(name = "is_deleted")
     private String isDeleted;
 
+    /**
+     *  规则名称
+     */
     @Column(name = "rule_name")
     private String ruleName;
 
+    /**
+     * 规则详情
+     */
     @Column(name = "rule_detail")
     private String ruleDetail;
 
+    /**
+     * 包名
+     */
     @Column(name = "package_name")
     private String packageName;
 
+    /**
+     * 规则是否可见 0：不可见； 1：可见
+     */
     @Column(name = "visible")
     private Integer visible;
 

@@ -66,4 +66,7 @@ public class Rule implements Serializable {
     @Column(name = "package_name")
     private String packageName;
 
+    @Column(name = "visible")
+    private Integer visible;
+
 }

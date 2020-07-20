@@ -23,18 +23,18 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `rule`;
 CREATE TABLE `rule`  (
   `rid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `id` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `add_by` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '域账号',
-  `add_time` datetime(0) NULL DEFAULT NULL COMMENT '添加日期',
-  `updated_by` varchar(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '域账号',
-  `updated_time` datetime(0) NULL DEFAULT NULL COMMENT '最后更新日期',
+  `id` varchar(36) DEFAULT NULL,
+  `add_by` varchar(36) DEFAULT NULL COMMENT '域账号',
+  `add_time` datetime(0) DEFAULT NULL COMMENT '添加日期',
+  `updated_by` varchar(36) DEFAULT NULL COMMENT '域账号',
+  `updated_time` datetime(0) DEFAULT NULL COMMENT '最后更新日期',
   `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT 0,
-  `rule_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `rule_detail` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `package_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `rule_name` varchar(100) DEFAULT NULL,
+  `rule_detail` varchar(2000) DEFAULT NULL,
+  `package_name` varchar(255) DEFAULT NULL,
   `visible` int(20) NULL DEFAULT 1,
   PRIMARY KEY (`rid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB;
 
 -- ----------------------------
 -- Records of rule

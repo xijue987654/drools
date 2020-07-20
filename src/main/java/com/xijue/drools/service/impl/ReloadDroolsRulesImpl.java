@@ -64,6 +64,7 @@ public class ReloadDroolsRulesImpl implements ReloadDroolsRules {
     public void testReload() throws Exception {
         Example example = new Example(Rule.class);
         example.createCriteria().andEqualTo("isDeleted", "0")
+                .andEqualTo("visible", 1)
                 .andEqualTo("packageName", "droolRule");
         List<Rule> rules = ruleMapper.selectByExample(example);
         KieHelper helper = new KieHelper();

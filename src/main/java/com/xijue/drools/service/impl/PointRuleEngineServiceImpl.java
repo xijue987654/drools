@@ -1,5 +1,6 @@
 package com.xijue.drools.service.impl;
 
+import com.xijue.drools.config.CustomAgendaFilter;
 import com.xijue.drools.entity.PointDomain;
 import com.xijue.drools.service.PointRuleEngineService;
 import com.xijue.drools.utils.KieUtils;
@@ -24,7 +25,7 @@ public class PointRuleEngineServiceImpl implements PointRuleEngineService {
         KieSession kieSession = KieUtils.getKieSession();
         kieSession.insert(pointDomain);
 
-        int ruleNums = kieSession.fireAllRules();
+        int ruleNums = kieSession.fireAllRules(new CustomAgendaFilter("droolRule"));
         System.out.println("触发了" + ruleNums + "条规则!");
         kieSession.dispose();
     }

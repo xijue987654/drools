@@ -4,7 +4,7 @@ import com.xijue.drools.entity.PointDomain;
 
 rule subBackNumsPoint
 // 发生退货，扣减10分
-salience 10
+//salience 10
 lock-on-active true
 when
     $pointDomain: PointDomain(backNums >= 1)
@@ -15,7 +15,7 @@ end
 
 rule subBackMondyPoint
 // 退货金额大于100，扣减10分
-salience 9
+//salience 9
 lock-on-active true
 when
     $pointDomain: PointDomain(backMondy >= 100)

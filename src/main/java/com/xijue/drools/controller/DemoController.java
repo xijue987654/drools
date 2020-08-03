@@ -2,6 +2,7 @@ package com.xijue.drools.controller;
 
 import com.xijue.drools.entity.PointDomain;
 import com.xijue.drools.service.PointRuleEngineService;
+import com.xijue.drools.utils.Timer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class DemoController {
     @Autowired
     private PointRuleEngineService ruleEngineService;
 
+    @Timer
     @RequestMapping("/rule/param")
     public void param() {
         PointDomain pointDomain = new PointDomain();

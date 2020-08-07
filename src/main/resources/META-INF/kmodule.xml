@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <kmodule xmlns="http://www.drools.org/xsd/kmodule">
+
+    <!-- src/main/resource/   资源文件 -->
     <kbase name="rules" packages="droolRule">
         <ksession name="ksession-rule"/>
     </kbase>
+
+    <!-- 外部 -->
+    <kbase name="kieBase_ratingTest2" packages="extRule">
+        <ksession name="session_ratingTest2" />
+    </kbase>
+
 </kmodule>

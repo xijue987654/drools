@@ -4,6 +4,7 @@ import com.xijue.drools.utils.KieUtils;
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.*;
+import org.kie.api.builder.model.KieModuleModel;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.io.ResourceFactory;
@@ -69,7 +70,9 @@ public class DroolsAutoConfig {
         return kieContainer;
     }
 
-    private KieServices getKieServices() {
+    @Bean
+    @ConditionalOnMissingBean(KieServices.class)
+    public KieServices getKieServices() {
         return KieServices.Factory.get();
     }
 
@@ -93,4 +96,15 @@ public class DroolsAutoConfig {
         return new KModuleBeanFactoryPostProcessor();
     }
 
+    @Bean
+    public KieRepository getKieRepository() {
+        KieServices kieServices = KieServices.Factory.get();
+        return kieServices.getRepository();
+    }
+
+    @Bean
+    public KieModuleModel getKieModule() {
+        KieServices kieServices = KieServices.Factory.get();
+        return kieServices.newKieModuleModel();
+    }
 }

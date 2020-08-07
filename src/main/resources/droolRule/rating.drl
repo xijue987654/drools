@@ -1,0 +1,22 @@
+package droolRule3
+
+import com.xijue.drools.entity.biz.Rating;
+import com.xijue.drools.entity.biz.RatingRequest;
+import com.xijue.drools.entity.biz.RatingResponse;
+import java.util.List;
+
+//import static com.xijue.drools.utils.BusinessUtils.calSumScore;
+import function com.xijue.drools.utils.BusinessUtils.calSumScore;
+
+
+// Drools7在Intellij IDEA下的引入静态方法错误提示，但是不影响程序的运行； 目前尚没有解决方案
+rule "rating4"
+    lock-on-active true
+    when
+        RatingRequest($request: lists && !lists.isEmpty())
+        $R: Rating() from $request
+        $Res: RatingResponse()
+    then
+        $Res.setSumScore(calSumScore($request, "0"));
+        System.out.println("rating4:" + $Res.getSumScore());
+end

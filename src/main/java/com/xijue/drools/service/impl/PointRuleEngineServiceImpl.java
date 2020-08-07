@@ -17,12 +17,12 @@ public class PointRuleEngineServiceImpl implements PointRuleEngineService {
     @Override
     public void executePointRule(PointDomain pointDomain) {
         // 从src/main/resource/droolRule下加载规则;
-//        KieSession kieSession = KieServices.Factory.get()
-//                .getKieClasspathContainer().newKieSession("ksession-rule");
+        KieSession kieSession = KieServices.Factory.get()
+                .getKieClasspathContainer().newKieSession("ksession-rule");
 
-        KieUtils.setKieContainer(KieServices.Factory.get()
-                .newKieContainer(KieServices.Factory.get().getRepository().getDefaultReleaseId()));
-        KieSession kieSession = KieUtils.getKieSession();
+//        KieUtils.setKieContainer(KieServices.Factory.get()
+//                .newKieContainer(KieServices.Factory.get().getRepository().getDefaultReleaseId()));
+//        KieSession kieSession = KieUtils.getKieSession();
         kieSession.insert(pointDomain);
 
         int ruleNums = kieSession.fireAllRules(new CustomAgendaFilter("droolRule"));

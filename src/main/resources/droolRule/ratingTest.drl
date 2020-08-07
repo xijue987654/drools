@@ -1,0 +1,85 @@
+package droolRule2
+
+import com.xijue.drools.entity.TestRequest;
+import com.xijue.drools.entity.Framework;
+import com.xijue.drools.entity.TestResponse
+import java.math.BigDecimal;
+import com.xijue.drools.entity.biz.RatingRequest;
+import com.xijue.drools.entity.biz.Rating;
+import com.xijue.drools.entity.biz.RatingResponse
+import java.util.ArrayList
+import java.util.List
+import com.alibaba.fastjson.JSONObject
+import java.util.Map
+import java.math.RoundingMode;
+
+
+rule "ratingTest"
+when
+    TestRequest($request: lists && !lists.isEmpty())
+    $F: Framework() from $request
+    $Res: TestResponse()
+then
+    $Res.setSumScore($F.getWeight().multiply(BigDecimal.valueOf((int) $F.getScore())).add($Res.getSumScore()));
+    System.out.println("计算后的总分数为：" + $Res.getSumScore());
+end
+
+
+/**
+ * test  rating
+ **/
+rule "rating"
+lock-on-active true
+when
+    RatingRequest($request: lists && !lists.isEmpty())
+    $li: List(size > 0)
+    $R: Rating(score == null) from $request
+then
+    $li.add($R.getKeypointId());
+    update($li);
+end
+
+rule "rating2"
+when
+    $m: Map()
+    RatingRequest($request: lists && !lists.isEmpty())
+    $li: List(size > 0)
+    $str: String() from $li
+    $R: Rating(!$str.equals("0") && keypointParentId.equals($str)) from $request
+    $Res: RatingResponse()
+then
+//    System.out.println("rating2:" + $m.get("tempStr").toString());
+    if (!$m.get("tempStr").toString().equals($str)) {
+        $m.put("tempStr", $str);
+        $Res.setSumScore(new BigDecimal("0"));
+    }
+    System.out.println("rating2:" + JSONObject.toJSONString($R));
+//    System.out.println("rating2:" + JSONObject.toJSONString($str));
+
+    $Res.setSumScore($R.getWeight().multiply($R.getScore()).add($Res.getSumScore()));
+    System.out.println("规则rating2>>>>>计算得分为:" + $Res.getSumScore());
+    System.out.println("规则rating2>>>>>request:" + JSONObject.toJSONString($request));
+    for (int i = 0; i < $request.size(); i++) {
+       Rating rating = (Rating) $request.get(i);
+       if (!$str.equals("0") && rating.getKeypointId().equals($str)) {
+           rating.setScore($Res.getSumScore());
+       }
+    }
+end
+
+rule "rating3"
+when
+    $m: Map()
+    RatingRequest($request: lists && !lists.isEmpty())
+    $li: List(size > 0)
+    $str: String() from $li
+    $R: Rating($str.equals("0") && keypointParentId.equals("0") && score != null) from $request
+    $Res: RatingResponse()
+then
+    System.out.println("规则rating3>>>>>计算总分数之前暂存区的值为:" + $m.get("tempScore").toString());
+    $m.put("tempScore", $R.getWeight().multiply($R.getScore()).add(new BigDecimal($m.get("tempScore").toString())));
+    $Res.setSumScore(new BigDecimal($m.get("tempScore").toString()));
+    System.out.println("规则rating3>>>>>本次计算过程:本次权重:"
+        + $R.getWeight() + "* 本次分数:" + $R.getScore() + "=" + $R.getWeight().multiply($R.getScore())
+        + ",计算得分为:" + $Res.getSumScore());
+end
